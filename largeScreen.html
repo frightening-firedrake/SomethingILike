@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>LargeScreen</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			@font-face {
+				font-family: 'electronicFont';
+				src: url(./font/DS-DIGIT.TTF);
+			}
+
+			html {
+				font-size: 0.079vw;
+			}
+
+			div.container {
+				width: 100%;
+				height: 100vh;
+				/* overflow: hidden; */
+				background: url('images/bg.jpg');
+				background-position: top center;
+				background-size: cover;
+			}
+
+			div.screenH {
+				height: 11vh;
+				min-height: 60rem;
+				width: 100%;
+				float: left;
+				background: url('images/head_bg.png');
+				background-size: cover;
+				position: relative;
+				line-height: 65rem;
+			}
+
+			div.screenH h1 {
+				font-size: 25rem;
+				text-align: center;
+				color: white;
+			}
+
+			div.screenH span {
+				position: absolute;
+				top: 0;
+				right: 25rem;
+				color: rgba(255, 255, 255, 0.6);
+			}
+
+			div.screenB {
+				height: 89vh;
+				width: 100%;
+				/* overflow: hidden; */
+				display: flex;
+			}
+
+			div.screenB .lside {
+				flex: 3;
+				display: flex;
+				flex-direction: column;
+				padding: 0 5rem;
+			}
+
+			div.screenB .mside {
+				flex: 4;
+				position: relative;
+			}
+
+			div.screenB .rside {
+				flex: 3;
+				display: flex;
+				flex-direction: column;
+				padding: 0 5rem;
+			}
+
+			.screenB .panel {
+				width: 100%;
+				background: url('images/line(1).png');
+				background-size: cover;
+				border: 1px solid rgba(25, 186, 139, 0.17);
+				flex: auto;
+				margin-bottom: 10rem;
+				padding: 0 10rem;
+				position: relative;
+			}
+
+			.screenB .panel .title {
+				font-size: 13rem;
+				color: white;
+				text-align: center;
+				line-height: 30rem;
+			}
+
+			.screenB .panel .title span {
+				cursor: pointer;
+				margin-left: 1em;
+				font-size: 10rem;
+				text-decoration: underline;
+			}
+
+			.screenB .panel .title+div {
+				/* height:160rem; */
+				height: 22vh;
+				/* background:hotpink; */
+			}
+
+			.screenB .panel i {
+				position: absolute;
+				width: 10px;
+				height: 10px;
+			}
+
+			.screenB .panel i.tr {
+				top: 0;
+				right: 0;
+				border-top: 2px solid rgb(2, 166, 181);
+				border-right: 2px solid rgb(2, 166, 181);
+			}
+
+			.screenB .panel i.br {
+				bottom: 0;
+				right: 0;
+				border-bottom: 2px solid rgb(2, 166, 181);
+				border-right: 2px solid rgb(2, 166, 181);
+			}
+
+			.screenB .panel i.bl {
+				bottom: 0;
+				left: 0;
+				border-bottom: 2px solid rgb(2, 166, 181);
+				border-left: 2px solid rgb(2, 166, 181);
+			}
+
+			.screenB .panel i.tl {
+				top: 0;
+				left: 0;
+				border-top: 2px solid rgb(2, 166, 181);
+				border-left: 2px solid rgb(2, 166, 181);
+			}
+
+			.numpanel {
+				background: rgba(101, 132, 226, 0.1);
+				padding: 10rem 10rem 0 10rem;
+			}
+
+			.numpanel p {
+				height: 52rem;
+				line-height: 52rem;
+				font-size: 46rem;
+				font-family: 'electronicFont';
+				color: rgb(255, 235, 123);
+				border: 1px solid rgba(25, 186, 139, 0.17);
+				border-right: none;
+				position: relative;
+			}
+
+			.numpanel p::after {
+				content: '';
+				height: 26rem;
+				width: 1px;
+				background: rgba(25, 186, 139, 0.17);
+				position: absolute;
+				top: 13rem;
+				right: 0;
+			}
+
+			.numpanel ul li:last-child p {
+				border-right: 1px solid rgba(25, 186, 139, 0.17);
+				border-left: 0;
+			}
+
+			.numpanel ul {
+				display: flex;
+				list-style-type: none;
+			}
+
+			.numpanel ul li {
+				flex: auto;
+				text-align: center;
+			}
+
+			.numpanel ul li span {
+				font-size: 12rem;
+				color: white;
+				line-height: 36rem;
+			}
+
+			.mapContainer {
+				height: 70vh;
+				position: relative;
+			}
+
+			.mapContainer .mapbg1,
+			.mapContainer .mapbg2,
+			.mapContainer .mapbg3 {
+				position: absolute;
+				width: 270rem;
+				height: 270rem;
+				top: 50%;
+				left: 50%;
+				/* transform: translate(-50%,-50%); */
+				margin: -135rem 0 0 -135rem;
+			}
+
+			.mapContainer .mapbg1 {
+				background: url('images/map.png');
+				background-size: 100%;
+			}
+
+			.mapContainer .mapbg2 {
+				background: url('images/lbx.png');
+				background-size: 100%;
+				animation: round1 5s linear infinite;
+			}
+
+			.mapContainer .mapbg3 {
+				background: url('images/jt.png');
+				background-size: 100%;
+				animation: round2 5s linear infinite;
+			}
+
+			@keyframes round1 {
+				from {
+					transform: rotate(0deg);
+				}
+
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			@keyframes round2 {
+				from {
+					transform: rotate(360deg);
+				}
+
+				to {
+					transform: rotate(0deg);
+				}
+			}
+			.mapChart{
+				width:100%;
+				height:100%;
+				position:absolute;
+				top:0;
+				left:0;
+				z-index: 999;
+			}
+		</style>
+		<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/china.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js" type="text/javascript" charset="utf-8"></script>	 -->
+	</head>
+	<body>
+		<div class="container">
+			<div class="screenH">
+				<h1>数据可视化大屏--这不就是ECharts</h1>
+				<span class="time"></span>
+			</div>
+			<div class="screenB">
+				<div class="lside">
+					<div class="panel">
+						<i class="tr"></i><i class="br"></i><i class="bl"></i><i class="tl"></i>
+						<h3 class="title">柱状图竖的<span class="changeWeek">上周</span><span class="changeWeek">本周</span><span
+								class="changeWeek">下周</span></h3>
+						<div class="colbarChart"></div>
+					</div>
+					<div class="panel">
+						<i class="tr"></i><i class="br"></i><i class="bl"></i><i class="tl"></i>
+						<h3 class="title">折线图平滑的</h3>
+						<div class="lineChart"></div>
+					</div>
+					<div class="panel">
+						<i class="tr"></i><i class="br"></i><i class="bl"></i><i class="tl"></i>
+						<h3 class="title">饼图空心的</h3>
+						<div class="pieChart"></div>
+					</div>
+				</div>
+				<div class="mside">
+					<div class="numpanel">
+						<ul>
+							<li>
+								<p>125811</p>
+								<span>随便写点啥</span>
+							</li>
+							<li>
+								<p>104563</p>
+								<span>我也不知道</span>
+							</li>
+						</ul>
+					</div>
+					<div class="mapContainer">
+						<div class="mapChart"></div>
+						<div class="mapbg1"></div>
+						<div class="mapbg2"></div>
+						<div class="mapbg3"></div>
+					</div>
+				</div>
+				<div class="rside">
+					<div class="panel">
+						<i class="tr"></i><i class="br"></i><i class="bl"></i><i class="tl"></i>
+						<h3 class="title">柱状图横向重叠的</h3>
+						<div class="rowbarChart"></div>
+					</div>
+					<div class="panel">
+						<i class="tr"></i><i class="br"></i><i class="bl"></i><i class="tl"></i>
+						<h3 class="title">折线图平滑填充的</h3>
+						<div class="lineFillChart"></div>
+					</div>
+					<div class="panel">
+						<i class="tr"></i><i class="br"></i><i class="bl"></i><i class="tl"></i>
+						<h3 class="title">南丁格尔玫瑰</h3>
+						<div class="pieNDChart"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			window.onload = function() {
+				let timer = document.querySelector('.time');
+
+				function setTime() {
+					let time = new Date()
+					let LocaleDate = time.toLocaleDateString().split('/')
+					let LocaleTime = time.toLocaleTimeString().split(':')
+					timer.innerHTML =
+						`当前时间:${LocaleDate[0]}年${LocaleDate[1]}月${LocaleDate[2]}日${LocaleTime[0]}时${LocaleTime[1]}分${LocaleTime[2]}秒`
+				}
+				setInterval(function() {
+					setTime()
+				}, 1000);
+				// 竖着的柱状图
+				(function() {
+					let myChart = echarts.init(document.querySelector('.colbarChart'));
+					let dateList = [
+						[10, 42, 200, 334, 390, 330, 220],
+						[30, 52, 95, 300, 330, 270, 120],
+						[60, 92, 260, 134, 290, 130, 280],
+					];
+					let option = {
+						color: ["#2f89cf"],
+						grid: {
+							left: "0%",
+							top: "10px",
+							right: "0%",
+							bottom: "0",
+							containLabel: true
+						},
+						tooltip: {
+							trigger: "axis",
+							axisPointer: {
+								// 坐标轴指示器，坐标轴触发有效
+								type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+							},
+							backgroundColor: 'rgba(0,0,0,0.5)',
+							borderWidth: 0,
+							padding: 3,
+							textStyle: {
+								color: 'rgba(255,255,255,0.8)',
+								fontSize: '10rem'
+							},
+						},
+						xAxis: {
+							type: 'category',
+							data: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'],
+							axisLine: {
+								show: false
+							},
+							axisTick: {
+								lineStyle: {
+									color: "rgba(255,255,255,.1)"
+								}
+								// show:false
+							},
+							axisLabel: {
+								rotate: 30,
+								color: 'rgba(255,255,255,0.6)',
+								fontSize: '12rem',
+								align: 'center',
+								verticalAlign: 'top'
+							}
+						},
+						yAxis: {
+							type: 'value',
+							axisLine: {
+								show: true,
+								lineStyle: {
+									color: "rgba(255,255,255,.1)"
+								}
+							},
+							axisTick: {
+								lineStyle: {
+									color: "rgba(255,255,255,.1)"
+								}
+								// show:false
+							},
+							axisLabel: {
+								color: 'rgba(255,255,255,0.6)',
+								fontSize: '12rem',
+							},
+							splitLine: {
+								lineStyle: {
+									color: "rgba(255,255,255,.1)"
+								}
+							}
+						},
+						series: [{
+							data: dateList[1],
+							name: '饭量',
+							type: 'bar',
+							// itemStyle:{
+							// 	borderRadius:5,
+							// },
+							barWidth: '30%',
+							// showBackground: true,
+							backgroundStyle: {
+								color: 'rgba(180, 180, 180, 0.2)'
+							}
+						}]
+					};
+					myChart.setOption(option);
+
+					document.querySelectorAll('.changeWeek').forEach(function(v, k) {
+						v.addEventListener('click', (function() {
+							option.series[0].data = dateList[k]
+							myChart.setOption(option);
+						}))
+					})
+					window.addEventListener("resize", function() {
+						myChart.resize();
+					});
+				})();
+				//横着的柱状图
+				(function() {
+
+					let myChart = echarts.init(document.querySelector('.rowbarChart'));
+					let colors = ["#1089E7", "#F57474", "#561", "#F8B448", "#8B78F6"];
+					let option = {
+						grid: {
+							top: "0%",
+							left: "15%",
+							right: "15%",
+							bottom: "10%",
+							// containLabel: false
+						},
+						// tooltip: {
+						// 	trigger: "item",
+						// 	backgroundColor: 'rgba(0,0,0,0.5)',
+						// 	borderWidth: 0,
+						// 	padding: 3,
+						// 	textStyle: {
+						// 		color: 'rgba(255,255,255,0.8)',
+						// 		fontSize: '10rem'
+						// 	},
+						// },
+						xAxis: {
+							type: 'value',
+							show: false
+						},
+						yAxis: [{
+								type: 'category',
+								data: ['html', 'css', 'js', 'ajax', 'vue'],
+								axisLine: {
+									show: false
+								},
+								axisTick: {
+									show: false
+								},
+								axisLabel: {
+									color: 'rgba(255,255,255,0.6)',
+									fontSize: '14rem',
+								},
+							},
+							{
+								type: 'category',
+								data: ['954', '774', '654', '777', '897'],
+								axisLine: {
+									show: false
+								},
+								axisTick: {
+									show: false
+								},
+								axisLabel: {
+									color: 'rgba(255,255,255,0.6)',
+									fontSize: '14rem',
+								},
+							},
+						],
+						series: [{
+								data: [60, 70, 70, 60, 70],
+								type: 'bar',
+								barWidth: 7,
+								// barGap :'-100%',
+								// barCategoryGap: '50%',
+								itemStyle: {
+									borderRadius: 10,
+									color: function(params) {
+										return colors[params.dataIndex]
+									}
+								},
+								label: {
+									show: true,
+									// 图形内显示
+									position: "inside",
+									// 文字的显示格式
+									formatter: "{c}%",
+									offset: [0, 1],
+									color: 'rgba(255,255,255,0.6)'
+								},
+								yAxisIndex: 0,
+							},
+							{
+								data: [100, 100, 100, 100, 100],
+								type: 'bar',
+								barWidth: 15,
+
+								// barGap :'-100%',//起点对比重叠
+								// barCategoryGap: '20%',
+								itemStyle: {
+									borderRadius: 20,
+									color: 'rgba(0,0,0,0)',
+									borderColor: '#00c1de',
+									borderWidth: 3,
+								},
+								emphasis: {
+									disabled: true
+								},
+								yAxisIndex: 1,
+								
+							}
+						]
+					};
+					myChart.setOption(option);
+					window.addEventListener("resize", function() {
+						myChart.resize();
+					});
+				})();
+				//平滑的折线图
+				(function() {
+					let myChart = echarts.init(document.querySelector('.lineChart'))
+					let option = {
+						legend: {
+							textStyle: {
+								color: '#4c9bfd'
+							}
+						},
+						tooltip: {
+							textStyle: {
+								color: 'rgba(255,255,255,0.8)',
+								fontSize: "12rem",
+							},
+							backgroundColor: 'rgba(0,0,0,0.6)',
+							borderWidth: 0,
+							trigger: 'axis',
+						},
+						grid: {
+							top: '10%',
+							left: '0%',
+							right: '4%',
+							bottom: '3%',
+							show: true, // 显示边框
+							borderColor: '#012f4a', // 边框颜色
+							containLabel: true // 包含刻度文字在内
+						},
+						xAxis: {
+							type: 'category',
+							boundaryGap: false,
+							data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+							axisLine: {
+								show: false
+							},
+							axisTick: {
+								show: false
+							},
+							axisLabel: {
+								color: 'rgba(255,255,255,0.6)',
+								fontSize: '12rem'
+							}
+						},
+						yAxis: {
+							type: 'value',
+							splitLine: {
+								lineStyle: {
+									color: "#012f4a",
+								}
+							},
+							axisLabel: {
+								color: 'rgba(255,255,255,0.6)',
+								fontSize: '12rem'
+							}
+						},
+						series: [{
+								name: '运动时间',
+								type: 'line',
+								data: [120, 132, 101, 134, 90, 230, 210],
+								smooth: true
+							},
+							{
+								name: '体重',
+								type: 'line',
+								data: [220, 182, 191, 234, 290, 330, 310],
+								smooth: true
+							},
+							{
+								name: '睡眠时间',
+								type: 'line',
+								data: [150, 232, 201, 154, 190, 330, 410],
+								smooth: true
+							},
+						]
+					};
+					myChart.setOption(option);
+					window.addEventListener("resize", function() {
+						myChart.resize();
+					});
+				})();
+				//填充颜色的平滑折线图
+				(function() {
+					let myChart = echarts.init(document.querySelector('.lineFillChart'));
+					let option = {
+						legend: {
+							textStyle: {
+								color: '#4c9bfd'
+							}
+						},
+						tooltip: {
+							textStyle: {
+								color: 'rgba(255,255,255,0.8)',
+								fontSize: "12rem",
+							},
+							backgroundColor: 'rgba(0,0,0,0.6)',
+							borderWidth: 0,
+							trigger: 'axis',
+							axisPointer: {
+								lineStyle: {
+									type: 'solid'
+								}
+							}
+						},
+						grid: {
+							top: '10%',
+							left: '5%',
+							right: '5%',
+							bottom: '3%',
+							show: true, // 显示边框
+							borderColor: 'rgba(255,255,255,.1)', // 边框颜色
+							containLabel: true // 包含刻度文字在内
+						},
+						xAxis: {
+							type: 'category',
+							boundaryGap: false,
+							data: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四'],
+							axisLine: {
+								show: false
+							},
+							axisTick: {
+								// show: false
+							},
+							axisLabel: {
+								color: 'rgba(255,255,255,0.6)',
+								fontSize: '12rem'
+							}
+						},
+						yAxis: {
+							type: 'value',
+							splitLine: {
+								lineStyle: {
+									color: "rgba(255,255,255,.1)",
+								}
+							},
+							axisLabel: {
+								color: 'rgba(255,255,255,0.6)',
+								fontSize: '12rem'
+							}
+						},
+						series: [{
+								name: '运动时间',
+								type: 'line',
+								data: [120, 132, 101, 134, 90, 230, 210, 150, 232, 201, 154, 190, 330, 410],
+								smooth: true,
+								lineStyle: {
+									color: "#0184d5",
+									width: 2
+								},
+								// 填充区域
+								areaStyle: {
+									// 渐变色，只需要复制即可
+									color: new echarts.graphic.LinearGradient(
+										0,
+										0,
+										0,
+										1,
+										[{
+												offset: 0,
+												color: "rgba(1, 132, 213, 0.4)" // 渐变色的起始颜色
+											},
+											{
+												offset: 0.8,
+												color: "rgba(1, 132, 213, 0.1)" // 渐变线的结束颜色
+											}
+										],
+										false
+									),
+									shadowColor: "rgba(0, 0, 0, 0.1)"
+								},
+								symbol: 'circle',
+								symbolSize: 8,
+								showSymbol: false,
+								itemStyle: {
+									color: "#0184d5",
+									borderColor: "rgba(221, 220, 107, .1)",
+									borderWidth: 12
+								},
+							},
+							{
+								name: '体重',
+								type: 'line',
+								data: [220, 182, 191, 234, 290, 330, 310, 120, 132, 101, 134, 90, 230, 210],
+								smooth: true,
+								lineStyle: {
+									color: "rgba(141,158,241,1)",
+									width: 2
+								},
+								areaStyle: {
+									color: 'rgba(141,158,241,0.6)'
+								},
+								symbol: 'circle',
+								symbolSize: 8,
+								showSymbol: false,
+								itemStyle: {
+									color: "rgba(141,158,241,1)",
+									borderColor: "rgba(141,158,241,.1)",
+									borderWidth: 12
+								},
+							},
+							{
+								name: '睡眠时间',
+								type: 'line',
+								data: [150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 310],
+								smooth: true,
+								lineStyle: {
+									color: "rgba(241,58,41,1)",
+									width: 2
+								},
+								areaStyle: {
+									color: 'rgba(241,58,41,0.6)'
+								},
+								symbol: 'circle',
+								symbolSize: 8,
+								showSymbol: false,
+								itemStyle: {
+									color: "rgba(241,58,41,1)",
+									borderColor: "rgba(241,58,41,.1)",
+									borderWidth: 12
+								},
+							},
+						]
+					};
+					myChart.setOption(option);
+					window.addEventListener('resize', function() {
+						myChart.resize();
+					})
+				})();
+				//饼图
+				(function() {
+					let myChart = echarts.init(document.querySelector('.pieChart'))
+					let option = {
+						color: [
+							"#065aab",
+							"#066eab",
+							"#0682ab",
+							"#0696ab",
+							"#06a0ab",
+						],
+						tooltip: {
+							trigger: 'item',
+							textStyle: {
+								color: 'rgba(255,255,255,0.8)',
+								fontSize: "12rem",
+							},
+							backgroundColor: 'rgba(0,0,0,0.6)',
+							borderWidth: 0
+						},
+						legend: {
+							// 距离底部为0%
+							bottom: "0%",
+							// 小图标的宽度和高度
+							itemWidth: 10,
+							itemHeight: 10,
+							// data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+							// 修改图例组件的文字为 12px
+							textStyle: {
+								color: "rgba(255,255,255,.5)",
+								fontSize: "12rem"
+							}
+						},
+						series: [{
+							name: '运动分类',
+							type: 'pie',
+							radius: ['40%', '70%'],
+							center: ["50%", "40%"],
+							// avoidLabelOverlap: false,
+							itemStyle: {
+								borderRadius: 4,
+								borderColor: 'rgba(255,255,255,0.3)',
+								borderWidth: 1
+							},
+							label: {
+								show: false,
+								position: 'center'
+							},
+							// emphasis: {
+							// 	label: {
+							// 		show: false,
+							// 		// fontSize: '40',
+							// 		// fontWeight: 'bold'
+							// 	}
+							// },
+							labelLine: {
+								show: false
+							},
+							data: [{
+									value: 1048,
+									name: '跑步'
+								},
+								{
+									value: 735,
+									name: '骑行'
+								},
+								{
+									value: 580,
+									name: '羽毛球'
+								},
+								{
+									value: 484,
+									name: '花滑'
+								},
+							]
+						}]
+					};
+					myChart.setOption(option)
+					window.addEventListener('resize', function() {
+						myChart.resize();
+					})
+				})();
+				//南丁格尔玫瑰图
+				(function() {
+					let myChart = echarts.init(document.querySelector('.pieNDChart'))
+					let option = {
+						color: ['#006cff', '#60cda0', '#ed8884', '#ff9f7f', '#0096ff', '#9fe6b8', '#32c5e9',
+							'#1d9dff'
+						],
+						tooltip: {
+							trigger: 'item',
+							textStyle: {
+								color: 'rgba(255,255,255,0.8)',
+								fontSize: "12rem",
+							},
+							backgroundColor: 'rgba(0,0,0,0.6)',
+							borderWidth: 0
+						},
+						legend: {
+							// 距离底部为0%
+							bottom: "0%",
+							// 小图标的宽度和高度
+							itemWidth: 10,
+							itemHeight: 10,
+							// data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+							// 修改图例组件的文字为 12px
+							textStyle: {
+								color: "rgba(255,255,255,.5)",
+								fontSize: "12rem"
+							}
+						},
+						series: [{
+							name: '营养摄入成分',
+							type: 'pie',
+							radius: ['10%','80%'],
+							center: ['50%', '40%'],
+							roseType: 'radius',
+							labelLine:{
+								length:4,
+							},
+							label:{
+								color:'rgba(255,255,255,0.6)',
+							},
+							data: [{
+									value: 40,
+									name: '碳水'
+								},
+								{
+									value: 38,
+									name: '蛋白'
+								},
+								{
+									value: 32,
+									name: '纤维'
+								},
+								{
+									value: 30,
+									name: '脂肪'
+								},
+								{
+									value: 28,
+									name: '维生素'
+								},
+								{
+									value: 26,
+									name: '钾'
+								},
+								{
+									value: 22,
+									name: '钠'
+								},
+							]
+						}]
+					};
+					myChart.setOption(option)
+					window.addEventListener('resize', function() {
+						myChart.resize();
+					})
+				})();
+				//中国地图
+				(function(){
+					let myChart=echarts.init(document.querySelector('.mapChart'))
+					var geoCoordMap = {
+					  上海: [121.4648, 31.2891],
+					  东莞: [113.8953, 22.901],
+					  东营: [118.7073, 37.5513],
+					  中山: [113.4229, 22.478],
+					  临汾: [111.4783, 36.1615],
+					  临沂: [118.3118, 35.2936],
+					  丹东: [124.541, 40.4242],
+					  丽水: [119.5642, 28.1854],
+					  乌鲁木齐: [87.9236, 43.5883],
+					  佛山: [112.8955, 23.1097],
+					  保定: [115.0488, 39.0948],
+					  兰州: [103.5901, 36.3043],
+					  包头: [110.3467, 41.4899],
+					  北京: [116.4551, 40.2539],
+					  北海: [109.314, 21.6211],
+					  南京: [118.8062, 31.9208],
+					  南宁: [108.479, 23.1152],
+					  南昌: [116.0046, 28.6633],
+					  南通: [121.1023, 32.1625],
+					  厦门: [118.1689, 24.6478],
+					  台州: [121.1353, 28.6688],
+					  合肥: [117.29, 32.0581],
+					  呼和浩特: [111.4124, 40.4901],
+					  咸阳: [108.4131, 34.8706],
+					  哈尔滨: [127.9688, 45.368],
+					  唐山: [118.4766, 39.6826],
+					  嘉兴: [120.9155, 30.6354],
+					  大同: [113.7854, 39.8035],
+					  大连: [122.2229, 39.4409],
+					  天津: [117.4219, 39.4189],
+					  太原: [112.3352, 37.9413],
+					  威海: [121.9482, 37.1393],
+					  宁波: [121.5967, 29.6466],
+					  宝鸡: [107.1826, 34.3433],
+					  宿迁: [118.5535, 33.7775],
+					  常州: [119.4543, 31.5582],
+					  广州: [113.5107, 23.2196],
+					  廊坊: [116.521, 39.0509],
+					  延安: [109.1052, 36.4252],
+					  张家口: [115.1477, 40.8527],
+					  徐州: [117.5208, 34.3268],
+					  德州: [116.6858, 37.2107],
+					  惠州: [114.6204, 23.1647],
+					  成都: [103.9526, 30.7617],
+					  扬州: [119.4653, 32.8162],
+					  承德: [117.5757, 41.4075],
+					  拉萨: [91.1865, 30.1465],
+					  无锡: [120.3442, 31.5527],
+					  日照: [119.2786, 35.5023],
+					  昆明: [102.9199, 25.4663],
+					  杭州: [119.5313, 29.8773],
+					  枣庄: [117.323, 34.8926],
+					  柳州: [109.3799, 24.9774],
+					  株洲: [113.5327, 27.0319],
+					  武汉: [114.3896, 30.6628],
+					  汕头: [117.1692, 23.3405],
+					  江门: [112.6318, 22.1484],
+					  沈阳: [123.1238, 42.1216],
+					  沧州: [116.8286, 38.2104],
+					  河源: [114.917, 23.9722],
+					  泉州: [118.3228, 25.1147],
+					  泰安: [117.0264, 36.0516],
+					  泰州: [120.0586, 32.5525],
+					  济南: [117.1582, 36.8701],
+					  济宁: [116.8286, 35.3375],
+					  海口: [110.3893, 19.8516],
+					  淄博: [118.0371, 36.6064],
+					  淮安: [118.927, 33.4039],
+					  深圳: [114.5435, 22.5439],
+					  清远: [112.9175, 24.3292],
+					  温州: [120.498, 27.8119],
+					  渭南: [109.7864, 35.0299],
+					  湖州: [119.8608, 30.7782],
+					  湘潭: [112.5439, 27.7075],
+					  滨州: [117.8174, 37.4963],
+					  潍坊: [119.0918, 36.524],
+					  烟台: [120.7397, 37.5128],
+					  玉溪: [101.9312, 23.8898],
+					  珠海: [113.7305, 22.1155],
+					  盐城: [120.2234, 33.5577],
+					  盘锦: [121.9482, 41.0449],
+					  石家庄: [114.4995, 38.1006],
+					  福州: [119.4543, 25.9222],
+					  秦皇岛: [119.2126, 40.0232],
+					  绍兴: [120.564, 29.7565],
+					  聊城: [115.9167, 36.4032],
+					  肇庆: [112.1265, 23.5822],
+					  舟山: [122.2559, 30.2234],
+					  苏州: [120.6519, 31.3989],
+					  莱芜: [117.6526, 36.2714],
+					  菏泽: [115.6201, 35.2057],
+					  营口: [122.4316, 40.4297],
+					  葫芦岛: [120.1575, 40.578],
+					  衡水: [115.8838, 37.7161],
+					  衢州: [118.6853, 28.8666],
+					  西宁: [101.4038, 36.8207],
+					  西安: [109.1162, 34.2004],
+					  贵阳: [106.6992, 26.7682],
+					  连云港: [119.1248, 34.552],
+					  邢台: [114.8071, 37.2821],
+					  邯郸: [114.4775, 36.535],
+					  郑州: [113.4668, 34.6234],
+					  鄂尔多斯: [108.9734, 39.2487],
+					  重庆: [107.7539, 30.1904],
+					  金华: [120.0037, 29.1028],
+					  铜川: [109.0393, 35.1947],
+					  银川: [106.3586, 38.1775],
+					  镇江: [119.4763, 31.9702],
+					  长春: [125.8154, 44.2584],
+					  长沙: [113.0823, 28.2568],
+					  长治: [112.8625, 36.4746],
+					  阳泉: [113.4778, 38.0951],
+					  青岛: [120.4651, 36.3373],
+					  韶关: [113.7964, 24.7028]
+					};
+					
+					var XAData = [
+					  [{ name: "西安" }, { name: "北京", value: 100 }],
+					  [{ name: "西安" }, { name: "上海", value: 100 }],
+					  [{ name: "西安" }, { name: "广州", value: 100 }],
+					  [{ name: "西安" }, { name: "西宁", value: 100 }],
+					  [{ name: "西安" }, { name: "拉萨", value: 100 }],
+					  [{ name: "西安" }, { name: "太原", value: 100 }]
+					];
+					
+					var XNData = [
+					  [{ name: "西宁" }, { name: "北京", value: 100 }],
+					  [{ name: "西宁" }, { name: "上海", value: 100 }],
+					  [{ name: "西宁" }, { name: "广州", value: 100 }],
+					  [{ name: "西宁" }, { name: "西安", value: 100 }],
+					  [{ name: "西宁" }, { name: "银川", value: 100 }]
+					];
+					
+					var YCData = [
+					  [{ name: "银川" }, { name: "广州", value: 100 }],
+					  [{ name: "银川" }, { name: "潍坊", value: 100 }],
+					  [{ name: "银川" }, { name: "哈尔滨", value: 100 }]
+					];
+					
+					var TYData = [
+					  [{ name: "太原" }, { name: "北京", value: 100 }],
+					  [{ name: "太原" }, { name: "上海", value: 100 }],
+					  [{ name: "太原" }, { name: "深圳", value: 100 }]
+					];
+					
+					var planePath =
+					  "path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z";
+					//var planePath = 'arrow';
+					var convertData = function(data) {
+					  var res = [];
+					  for (var i = 0; i < data.length; i++) {
+					    var dataItem = data[i];
+					
+					    var fromCoord = geoCoordMap[dataItem[0].name];
+					    var toCoord = geoCoordMap[dataItem[1].name];
+					    if (fromCoord && toCoord) {
+					      res.push({
+					        fromName: dataItem[0].name,
+					        toName: dataItem[1].name,
+					        coords: [fromCoord, toCoord],
+					        value: dataItem[1].value
+					      });
+					    }
+					  }
+					  return res;
+					};
+					
+					var color = ["#F8B448", "#ed8884", "#60cda0","rgb(0,233,0)"]; //航线的颜色
+					var series = [];
+					[
+					  ["西安", XAData],
+					  ["西宁", XNData],
+					  ["银川", YCData],
+					  ["太原", TYData]
+					].forEach(function(item, i) {
+					  series.push(
+					    {
+					      name: item[0] + " Top3",
+					      type: "lines",
+					      zlevel: 1,
+					      effect: {
+					        show: true,
+					        period: 6,
+					        trailLength: 0.7,
+					        color: "red", //arrow箭头的颜色
+					        symbolSize: 3
+					      },
+					      lineStyle: {
+					        normal: {
+					          color: color[i],
+					          width: 0,
+					          curveness: 0.2
+					        }
+					      },
+					      data: convertData(item[1])
+					    },
+					    {
+					      name: item[0] + " Top3",
+					      type: "lines",
+					      zlevel: 2,
+					      symbol: ["none", "arrow"],
+					      symbolSize: 10,
+					      effect: {
+					        show: true,
+					        period: 6,
+					        trailLength: 0,
+					        symbol: planePath,
+					        symbolSize: 15
+					      },
+					      lineStyle: {
+					        normal: {
+					          color: color[i],
+					          width: 1,
+					          opacity: 0.6,
+					          curveness: 0.2
+					        }
+					      },
+					      data: convertData(item[1])
+					    },
+					    {
+					      name: item[0] + " Top3",
+					      type: "effectScatter",
+					      coordinateSystem: "geo",
+					      zlevel: 2,
+					      rippleEffect: {
+					        brushType: "stroke"
+					      },
+					      label: {
+					        normal: {
+					          show: true,
+					          position: "right",
+					          formatter: "{b}"
+					        }
+					      },
+					      symbolSize: function(val) {
+					        return val[2] / 8;
+					      },
+					      itemStyle: {
+					        normal: {
+					          color: color[i]
+					        },
+					        emphasis: {
+					          areaColor: "#2B91B7"
+					        }
+					      },
+					      data: item[1].map(function(dataItem) {
+					        return {
+					          name: dataItem[1].name,
+					          value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+					        };
+					      })
+					    }
+					  );
+					});
+					var option = {
+					  tooltip: {
+					    trigger: "item",
+						textStyle: {
+							color: 'rgba(255,255,255,0.8)',
+							fontSize: "12rem",
+						},
+						backgroundColor: 'rgba(0,0,0,0.6)',
+						borderWidth: 0,
+					    formatter: function(params, ticket, callback) {
+					      if (params.seriesType == "effectScatter") {
+					        return "线路：" + params.data.name + "" + params.data.value[2];
+					      } else if (params.seriesType == "lines") {
+					        return (
+					          params.data.fromName +
+					          ">" +
+					          params.data.toName +
+					          "<br />" +
+					          params.data.value
+					        );
+					      } else {
+					        return params.name;
+					      }
+					    }
+					  },
+					
+					  geo: {
+					    map: "china",
+					    label: {
+					      emphasis: {
+					        show: true,
+					        color: "#fff"
+					      }
+					    },
+					    roam: false,
+					    //   放大我们的地图
+					    zoom: 1,
+					    itemStyle: {
+					      normal: {
+					        areaColor: "rgba(43, 196, 243, 0.42)",
+					        borderColor: "rgba(43, 196, 243, 1)",
+					        borderWidth: 1
+					      },
+					      emphasis: {
+					        areaColor: "#2B91B7"
+					      }
+					    }
+					  },
+					  series: series
+					};
+					myChart.setOption(option)
+					window.addEventListener('resize',function(){
+						myChart.resize();
+					})
+				})();
+			}
+		</script>
+	</body>
+</html>
