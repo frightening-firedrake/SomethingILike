@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>甘特图测试</title>
+		<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			#main {
+				width: 80vw;
+				height: 80vh;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main"></div>
+
+
+
+
+
+
+		<script>
+			var chartDom = document.getElementById('main');
+			var myChart = echarts.init(chartDom);
+			var option;
+
+			var data = [];
+			var dataCount = 10;
+			var startTime = +new Date();
+			var categories = ['锻造工位', '冷却工位', '热处理','锻造工位2','冷却工位2','热处理2'];//纵轴坐标 工位
+			var types = [{//工序
+					name: '吃饭',
+					color: '#7b9ce1'
+				},
+				{
+					name: '睡觉',
+					color: '#bd6d6c'
+				},
+				{
+					name: '刷B站',
+					color: '#75d874'
+				},
+				{
+					name: '撸代码',
+					color: '#e0bc78'
+				},
+				{
+					name: '看动画',
+					color: '#dc77dc'
+				},
+				{
+					name: '肥宅快乐水',
+					color: '#72b'
+				}
+			];
+			// Generate mock data
+			categories.forEach(function(category, index) {
+				var baseTime = startTime;
+				for (var i = 0; i < dataCount; i++) {
+					var typeItem = types[Math.round(Math.random() * (types.length - 1))];//随机工序
+					var duration = Math.round(Math.random() * 12);//随机工时
+					var complete = Math.round(Math.random()*duration*0.8)+ duration*0.2;//随机工时一部分
+					data.push({
+						name: typeItem.name,
+						// value: [index, baseTime, (baseTime + duration),(baseTime + complete), duration,complete],//对应工序index，开始时间，结束时间，持续时间
+						value: [index, baseTime, (baseTime += duration),(baseTime - duration + complete), duration,complete],//对应工序index，开始时间，结束时间，持续时间
+						itemStyle: {
+							// borderCap:'round',
+							// borderRadius:1,
+							normal: {
+								color: typeItem.color,
+							}
+						}
+					});
+					console.log(baseTime - duration + complete)
+					baseTime += Math.round(Math.random() * 15);//累加了随机时间
+					// 实际数据结构类似data=[
+					//                                       categoryIndex，start，end  
+					// 						{name:'工序1'，value:[index, baseTime, (baseTime += duration), duration]},
+					// 						{name:'工序2'，value:[index, baseTime, (baseTime += duration), duration]},
+					// 						{name:'工序3'，value:[index, baseTime, (baseTime += duration), duration]},
+					// 						{name:'工序4'，value:[index, baseTime, (baseTime += duration), duration]},
+					// 					]
+				}
+			});
+
+			function renderItem(params, api) {//数据坐标，可用api
+				var categoryIndex = api.value(0);//意思是取出 dataItem 中的数值。例如 api.value(0) 表示取出当前 dataItem 中第一个维度的数值。
+				var start = api.coord([api.value(1), categoryIndex]);//意思是进行坐标转换计算。例如 var point = api.coord([api.value(0), api.value(1)]) 表示 dataItem 中的数值转换成坐标系上的点。
+				var end = api.coord([api.value(2), categoryIndex]);
+				var end2 = api.coord([api.value(3), categoryIndex]);
+				var height = api.size([0, 1])[1] * 0.3;//函数，表示得到坐标系上一段数值范围对应的长度。
+				var rectShape = echarts.graphic.clipRectByRect({
+					x: start[0],
+					y: start[1] - height / 2,
+					width: end[0] - start[0],
+					height: height
+				}, {
+					x: params.coordSys.x,
+					y: params.coordSys.y,
+					width: params.coordSys.width,
+					height: params.coordSys.height
+				});
+				var rectShape2 = echarts.graphic.clipRectByRect({
+					x: start[0],
+					y: start[1] - height / 2,
+					width: end2[0] - start[0],
+					height: height
+				}, {
+					x: params.coordSys.x,
+					y: params.coordSys.y,
+					width: params.coordSys.width,
+					height: params.coordSys.height
+				});
+				if(rectShape&&rectShape2){
+					rectShape.r=[10];//加圆角
+					rectShape2.r=[10];//加圆角
+				}
+				return (
+					// rectShape && rectShape2&&{
+					rectShape &&{
+						// type: 'rect',
+						// transition: ['shape'],
+						// shape: rectShape,
+						// style: api.style()
+						type:'group',
+						children: [{
+							type: 'rect',
+							transition: ['shape'],
+							shape: rectShape,
+							style: api.style({
+								 stroke: 'rgba(0, 0, 0,1)',//图形颜色
+								 opacity:0.3,
+								 lineWidth: 1
+								
+							 })
+						},
+						{
+							type: 'rect',
+							transition: ['shape'],
+							shape: rectShape2,
+							style: api.style()
+						},
+				
+						]
+						
+						
+						
+					}
+				);
+			}
+			function renderItem2(params, api) {//数据坐标，可用api
+				var categoryIndex = api.value(0);//意思是取出 dataItem 中的数值。例如 api.value(0) 表示取出当前 dataItem 中第一个维度的数值。
+				var start = api.coord([api.value(1), categoryIndex]);//意思是进行坐标转换计算。例如 var point = api.coord([api.value(0), api.value(1)]) 表示 dataItem 中的数值转换成坐标系上的点。
+				var end = api.coord([api.value(2), categoryIndex]);
+				var end2 = api.coord([api.value(3), categoryIndex]);
+				var height = api.size([0, 1])[1] * 0.3;//函数，表示得到坐标系上一段数值范围对应的长度。
+				var rectShape = echarts.graphic.clipRectByRect({
+					x: start[0],
+					y: start[1] - height / 2,
+					width: end[0] - start[0],
+					height: height
+				}, {
+					x: params.coordSys.x,
+					y: params.coordSys.y,
+					width: params.coordSys.width,
+					height: params.coordSys.height
+				});
+				
+				if(rectShape){
+					rectShape.r=[10];//加圆角
+					
+				}
+				return (
+					// rectShape && rectShape2&&{
+					rectShape &&{
+						type: 'rect',
+						transition: ['shape'],
+						shape: rectShape,
+						style: api.style({
+							 stroke: 'rgba(0, 0, 0,1)',//图形颜色
+							 opacity:0.3,
+							 lineWidth: 1
+							
+						 })
+					}
+				);
+			}
+			
+			function renderItem3(params, api) {//数据坐标，可用api
+				var categoryIndex = api.value(0);//意思是取出 dataItem 中的数值。例如 api.value(0) 表示取出当前 dataItem 中第一个维度的数值。
+				var start = api.coord([api.value(1), categoryIndex]);//意思是进行坐标转换计算。例如 var point = api.coord([api.value(0), api.value(1)]) 表示 dataItem 中的数值转换成坐标系上的点。
+				var end = api.coord([api.value(2), categoryIndex]);
+				var end2 = api.coord([api.value(3), categoryIndex]);
+				var height = api.size([0, 1])[1] * 0.3;//函数，表示得到坐标系上一段数值范围对应的长度。
+				
+				var rectShape2 = echarts.graphic.clipRectByRect({
+					x: start[0],
+					y: start[1] - height / 2,
+					width: end2[0] - start[0],
+					height: height
+				}, {
+					x: params.coordSys.x,
+					y: params.coordSys.y,
+					width: params.coordSys.width,
+					height: params.coordSys.height
+				});
+				if(rectShape2){
+					
+					rectShape2.r=[10];//加圆角
+				}
+				return (
+					// rectShape && rectShape2&&{
+					rectShape2 &&{
+						type: 'rect',
+						transition: ['shape'],
+						shape: rectShape2,
+						style: api.style()
+	
+						
+					}
+				);
+			}
+			
+			
+			
+			
+			option = {
+				tooltip: {//hover提示
+					formatter: function(params) {
+						return params.marker + params.name + ': ' + params.value[4] + ' 小时,已完成'+ params.value[5]+'小时,完成度'+(params.value[5]/params.value[4]*100).toFixed(2) +'%';
+					}
+				},
+				// legend: {
+				//     //写了没用闹不成
+				// 	data:['吃饭','睡觉','刷B站','撸代码','看动画','肥宅快乐水']
+				// },
+				title: {
+					text: '这是在研究甘特图呢',//标题
+					left: 'center'
+				},
+				// 缩放
+				dataZoom: [{
+						type: 'slider',
+						filterMode: 'weakFilter',
+						showDataShadow: false,
+						top: 400,
+						labelFormatter: ''
+					},
+					{
+						type: 'inside',
+						filterMode: 'weakFilter'
+					}
+				],
+				// 布局
+				grid: {
+					height: 300
+				},
+				xAxis: {
+					min: startTime,
+					scale: true,
+					axisLabel: {
+						formatter: function(val) {
+							return Math.max(0, val - startTime) + ' 小时';
+						}
+					}
+				},
+				yAxis: {
+					data: categories
+				},
+				series: [
+					{
+					type: 'custom',
+					renderItem: renderItem2,
+					// label: {
+					//         normal: {
+					//           show: true,
+					//           // color: "#fff",
+					//           position: "top",
+					//           formatter: function (params) {
+					// 			  // console.log(params)
+					//             return params.name+':'+params.value[4]+'小时';
+					//           },
+						
+					//         },
+					//       },
+					itemStyle: {
+						opacity: 0.8
+					},
+					encode: {
+						x: [1, 2],
+						y: 0
+					},
+					data: data
+				},
+				{
+					type: 'custom',
+					renderItem: renderItem3,
+					// label: {
+					//         normal: {
+					//           show: true,
+					//           // color: "#fff",
+					//           position: "top",
+					//           formatter: function (params) {
+					// 			  // console.log(params)
+					//             return params.name+':'+params.value[4]+'小时';
+					//           },
+						
+					//         },
+					//       },
+					itemStyle: {
+						opacity: 0.8
+					},
+					encode: {
+						x: [1, 2],
+						y: 0
+					},
+					data: data
+				},
+				
+				
+				]
+			};
+
+			option && myChart.setOption(option);
+		</script>
+	</body>
+</html>

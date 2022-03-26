@@ -1,238 +1,267 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>每日一练</title>
-		<style type="text/css">
-			*{
-				margin:0;
-				padding:0;
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>每日一练</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			min-height: 100vh;
+			display: flex;
+			overflow: hidden;
+			background: #001F25;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+		}
+
+		.container {
+			width: 300px;
+			height: 300px;
+			position: relative;
+		}
+
+		.container span {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			filter: blur(1px);
+			transform: rotate(calc(36deg*var(--i)));
+		}
+
+		.container span::after {
+			content: '';
+			width: 25px;
+			height: 25px;
+			border: 4px solid #00EFFF;
+			/* background: transparent; */
+			border-radius: 50%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			box-sizing: border-box;
+			box-shadow: 0 0 20px #00EFFF,
+				0 30px 0 #00EFFF,
+				0 -30px 0 #00EFFF,
+				30px 0 0 #00EFFF,
+				-30px 0 0 #00EFFF;
+			animation: around 5s linear infinite;
+			animation-delay: calc(-0.25s*var(--i));
+			transform-origin: 20px;
+			transition: 3s;
+		}
+
+		@keyframes around {
+			0% {
+				filter: hue-rotate(0deg);
+				transform: rotate(0deg);
 			}
-			body{
-				min-height: 100vh;
-				display: flex;
-				overflow: hidden;
-				background: #001F25;
-				justify-content:center;
-				align-items:center;
-				position:relative;
+
+			100% {
+				filter: hue-rotate(1080deg);
+				transform: rotate(1080deg);
 			}
-			.container{
-				width:300px;
-				height:300px;
-				position:relative;
+		}
+
+		.container:hover span::after {
+			transform-origin: 100px;
+			box-shadow: 0 0 20px #00EFFF,
+				0 200px 0 #00EFFF,
+				0 -200px 0 #00EFFF,
+				200px 0 0 #00EFFF,
+				-200px 0 0 #00EFFF20
+		}
+
+		.sweetHeart {
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			filter: blur(1px);
+			pointer-events: none;
+			animation: fade 1s linear infinite;
+		}
+
+		@keyframes fade {
+			0% {
+				opacity: 0;
 			}
-			.container span{
-				width:100%;
-				height:100%;
-				position:absolute;
-				top:0;
-				left:0;
-				filter:blur(1px);
-				transform: rotate(calc(36deg*var(--i)));
+
+			30% {
+				opacity: 1;
 			}
-			.container span::after{
-				content: '';
-				width:25px;
-				height:25px;
-				border:4px solid #00EFFF;
-				/* background: transparent; */
-				border-radius: 50%;
-				position:absolute;
-				top:0;
-				left:0;
-				box-sizing: border-box;
-				box-shadow: 0 0 20px #00EFFF,
-							0 30px 0 #00EFFF,
-							0 -30px 0 #00EFFF,
-							30px 0 0 #00EFFF,
-							-30px 0 0 #00EFFF;
-				animation:around 5s linear infinite;
-				animation-delay:calc(-0.25s*var(--i));
-				transform-origin: 20px;
-				transition: 3s;
+
+			70% {
+				opacity: 1;
 			}
-			@keyframes around{
-				0%{
-					filter:hue-rotate(0deg);
-					transform: rotate(0deg);
-				}
-				100%{
-					filter:hue-rotate(1080deg);
-					transform: rotate(1080deg);
-				}
+
+			100% {
+				opacity: 0;
 			}
-			.container:hover span::after{
-				transform-origin: 100px;
-				box-shadow: 0 0 20px #00EFFF,
-							0 200px 0 #00EFFF,
-							0 -200px 0 #00EFFF,
-							200px 0 0 #00EFFF,
-							-200px 0 0 #00EFFF20
+		}
+
+		@keyframes fly {
+			0% {
+				transform: translate(0) rotate(0deg)
 			}
-			.sweetHeart{
-				width:20px;
-				height:20px;
-				position:absolute;
-				filter: blur(1px);
-				pointer-events: none;
-				animation: fade 1s linear infinite;
+
+			100% {
+				transform: translate(300px) rotate(360deg)
 			}
-			@keyframes fade{
-				0%{
-					opacity:0;
-				}
-				30%{
-					opacity: 1;
-				}
-				70%{
-					opacity: 1;
-				}
-				100%{
-					opacity:0;
-				}
-			}
-			@keyframes fly{
-				0%{
-					transform:translate(0) rotate(0deg) 
-				}
-				100%{
-					transform:translate(300px) rotate(360deg)
-				}
-			}
-			.sweetHeart span{
-				width:100%;
-				height:100%;
-				background: deeppink;
-				position:absolute;
-				animation: fly 1s linear infinite;
-				filter: drop-shadow(0 0 15px rgba(0,0,0,0.6));
-			}
-			.sweetHeart span::after,.sweetHeart span::before{
-				content: '';
-				width:100%;
-				height:100%;
-				position:absolute;
-				top: 0;
-				left: 0;
-				transform:translate(50%,0);
-				background: deeppink;
-				border-radius: 50%;
-			}
-			.sweetHeart span::after{
-				transform:translate(0,50%);
-			}
-			/* @font-face{
+		}
+
+		.sweetHeart span {
+			width: 100%;
+			height: 100%;
+			background: deeppink;
+			position: absolute;
+			animation: fly 1s linear infinite;
+			filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.6));
+		}
+
+		.sweetHeart span::after,
+		.sweetHeart span::before {
+			content: '';
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: translate(50%, 0);
+			background: deeppink;
+			border-radius: 50%;
+		}
+
+		.sweetHeart span::after {
+			transform: translate(0, 50%);
+		}
+
+		/* @font-face{
 			     font-family: 'BadScript'; 
 			     src: url('./BadScriptRegular.ttf') format('truetype');
 			} */
-			/* cyrillic */
-			@font-face {
-			  font-family: 'Bad Script';
-			  font-style: normal;
-			  font-weight: 400;
-			  src: url(https://fonts.gstatic.com/s/badscript/v14/6NUT8F6PJgbFWQn47_x7pO8kzO1A.woff2) format('woff2');
-			  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		/* cyrillic */
+		@font-face {
+			font-family: 'Bad Script';
+			font-style: normal;
+			font-weight: 400;
+			src: url(https://fonts.gstatic.com/s/badscript/v14/6NUT8F6PJgbFWQn47_x7pO8kzO1A.woff2) format('woff2');
+			unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+
+		/* latin */
+		@font-face {
+			font-family: 'Bad Script';
+			font-style: normal;
+			font-weight: 400;
+			src: url(https://fonts.gstatic.com/s/badscript/v14/6NUT8F6PJgbFWQn47_x7pOskzA.woff2) format('woff2');
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+		}
+
+		.lightWord {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			color: transparent;
+			font-size: 6vw;
+			font-family: 'Bad Script', cursive;
+			font-weight: bold;
+			white-space: nowrap;
+		}
+
+		.lightWord span {
+			animation: light 3s linear infinite;
+			animation-delay: calc(0.23s*var(--i));
+		}
+
+		@keyframes light {
+			0% {
+				color: white;
+				filter: blur(2px) hue-rotate(0deg);
+				text-shadow: 0 0 10px #00BFFF,
+					0 0 20px #00BFFF,
+					0 0 40px #00BFFF,
+					0 0 80px #00BFFF,
+					0 0 120px #00BFFF,
+					0 0 200px #00BFFF,
+					0 0 300px #00BFFF;
 			}
-			/* latin */
-			@font-face {
-			  font-family: 'Bad Script';
-			  font-style: normal;
-			  font-weight: 400;
-			  src: url(https://fonts.gstatic.com/s/badscript/v14/6NUT8F6PJgbFWQn47_x7pOskzA.woff2) format('woff2');
-			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+
+			30%,
+			70% {
+				color: white;
+				filter: blur(2px) hue-rotate(360deg);
+				text-shadow: 0 0 10px #00BFFF,
+					0 0 20px #00BFFF,
+					0 0 40px #00BFFF,
+					0 0 80px #00BFFF,
+					0 0 120px #00BFFF;
+
 			}
-			.lightWord{
-				position:absolute;
-				top:50%;
-				left:50%;
-				transform:translate(-50%,-50%);
-				color:transparent;
-				font-size: 6vw;
-				font-family: 'Bad Script',cursive;
-				font-weight: bold;
-				white-space: nowrap;
+
+			100% {
+				filter: blur(2px) hue-rotate(0deg);
+				color: transparent;
+				text-shadow: none;
 			}
-			.lightWord span{
-				animation:light 3s linear infinite;
-				animation-delay: calc(0.23s*var(--i));
-			}
-			@keyframes light{
-				0%{
-					color:white;
-					filter: blur(2px) hue-rotate(0deg);
-					text-shadow: 0 0 10px #00BFFF,
-					             0 0 20px #00BFFF,
-					             0 0 40px #00BFFF,
-					             0 0 80px #00BFFF,
-					             0 0 120px #00BFFF,
-					             0 0 200px #00BFFF,
-					             0 0 300px #00BFFF;
-				}
-				30%,70%{
-					color:white;
-					filter: blur(2px) hue-rotate(360deg);
-					text-shadow: 0 0 10px #00BFFF,
-								 0 0 20px #00BFFF,
-					             0 0 40px #00BFFF,
-					             0 0 80px #00BFFF,
-					             0 0 120px #00BFFF;
-					        
-				}
-				100%{
-					filter: blur(2px) hue-rotate(0deg);
-					color:transparent;
-					text-shadow: none;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<span style="--i:1"></span>
-			<span style="--i:2"></span>
-			<span style="--i:3"></span>
-			<span style="--i:4"></span>
-			<span style="--i:5"></span>
-			<span style="--i:6"></span>
-			<span style="--i:7"></span>
-			<span style="--i:8"></span>
-			<span style="--i:9"></span>
-			<span style="--i:10"></span>
-		</div>
-		<div class="lightWord">
-			<span style="--i:1">H</span>
-			<span style="--i:2">a</span>
-			<span style="--i:3">p</span>
-			<span style="--i:4">p</span>
-			<span style="--i:5">y</span>
-			<span style="--i:6">b</span>
-			<span style="--i:7">i</span>
-			<span style="--i:8">r</span>
-			<span style="--i:9">t</span>
-			<span style="--i:10">h</span>
-			<span style="--i:11">d</span>
-			<span style="--i:12">a</span>
-			<span style="--i:13">y</span>
-		</div>
-		<script type="text/javascript">
-			document.addEventListener('mousemove',function(e){
-				let sweetHeart=document.createElement('div');
-				let size=20+Math.random()*30+'px';
-				let rotate=Math.random()*360+'deg';
-				sweetHeart.className='sweetHeart';
-				sweetHeart.innerHTML='<span><span>';
-				sweetHeart.style.left=e.clientX+'px';
-				sweetHeart.style.top=e.clientY+'px';
-				sweetHeart.style.width=size;
-				sweetHeart.style.height=size;
-				sweetHeart.style.transform=`rotate( ${rotate} )`;
-				document.querySelector('body').appendChild(sweetHeart)
-				setTimeout(function(){
-					sweetHeart.remove()
-				},1000)
-			})
-		</script>
-	</body>
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<span style="--i:1"></span>
+		<span style="--i:2"></span>
+		<span style="--i:3"></span>
+		<span style="--i:4"></span>
+		<span style="--i:5"></span>
+		<span style="--i:6"></span>
+		<span style="--i:7"></span>
+		<span style="--i:8"></span>
+		<span style="--i:9"></span>
+		<span style="--i:10"></span>
+	</div>
+	<div class="lightWord">
+		<span style="--i:1">H</span>
+		<span style="--i:2">a</span>
+		<span style="--i:3">p</span>
+		<span style="--i:4">p</span>
+		<span style="--i:5">y</span>
+		<span style="--i:6">b</span>
+		<span style="--i:7">i</span>
+		<span style="--i:8">r</span>
+		<span style="--i:9">t</span>
+		<span style="--i:10">h</span>
+		<span style="--i:11">d</span>
+		<span style="--i:12">a</span>
+		<span style="--i:13">y</span>
+	</div>
+	<script type="text/javascript">
+		document.addEventListener('mousemove', function (e) {
+			let sweetHeart = document.createElement('div');
+			let size = 20 + Math.random() * 30 + 'px';
+			let rotate = Math.random() * 360 + 'deg';
+			sweetHeart.className = 'sweetHeart';
+			sweetHeart.innerHTML = '<span><span>';
+			sweetHeart.style.left = e.clientX + 'px';
+			sweetHeart.style.top = e.clientY + 'px';
+			sweetHeart.style.width = size;
+			sweetHeart.style.height = size;
+			sweetHeart.style.transform = `rotate( ${rotate} )`;
+			document.querySelector('body').appendChild(sweetHeart)
+			setTimeout(function () {
+				sweetHeart.remove()
+			}, 1000)
+		})
+	</script>
+</body>
+
 </html>
