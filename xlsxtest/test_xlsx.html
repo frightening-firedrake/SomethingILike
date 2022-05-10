@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>这里是一个测试的表格哦</title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			body {
+				display: flex;
+				min-height: 100vh;
+				justify-content: center;
+				align-items: center;
+			}
+
+			table {
+				flex: none;
+			}
+
+			th,
+			td {
+				padding: 5px 20px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<table id="my-table-id" border="1" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>表头1</th>
+				<th>表头2</th>
+				<th>表头3</th>
+				<th>表头4</th>
+			</tr>
+			<tr>
+				<td>数据1行1列</td>
+				<td>数据1行2列</td>
+				<td>数据1行3列</td>
+				<td>数据1行4列</td>
+			</tr>
+			<tr>
+				<td>数据2行1列</td>
+				<td>数据2行2列</td>
+				<td>数据2行3列</td>
+				<td>数据2行4列</td>
+			</tr>
+			<tr>
+				<td>数据3行1列</td>
+				<td>数据3行2列</td>
+				<td>数据3行3列</td>
+				<td>数据3行4列</td>
+			</tr>
+			<tr>
+				<td>数据4行1列</td>
+				<td>数据4行2列</td>
+				<td>数据4行3列</td>
+				<td>数据4行4列</td>
+			</tr>
+			<tr>
+				<td>数据5行1列</td>
+				<td>数据5行2列</td>
+				<td>数据5行3列</td>
+				<td>数据5行4列</td>
+			</tr>
+			<tr>
+				<td>数据6行1列</td>
+				<td>数据6行2列</td>
+				<td>数据6行3列</td>
+				<td>数据6行4列</td>
+			</tr>
+		</table>
+		<table  id="my-table-id2" cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 1652px;">
+			<colgroup>
+				<col name="el-table_3_column_12" width="95">
+				<col name="el-table_3_column_13_column_14" width="1112">
+				<col name="el-table_3_column_13_column_15" width="110">
+				<col name="el-table_3_column_13_column_16" width="115">
+				<col name="el-table_3_column_17" width="220">
+				<col name="gutter" width="0">
+			</colgroup>
+			<thead class="is-group has-gutter">
+				<tr class="">
+					<th colspan="1" rowspan="2" class="el-table_3_column_12  is-center   is-leaf">
+						<div class="cell">Id</div>
+					</th>
+					<th colspan="3" rowspan="1" class="el-table_3_column_13  is-center  ">
+						<div class="cell">Main Information</div>
+					</th>
+					<th colspan="1" rowspan="2" class="el-table_3_column_17  is-center   is-leaf">
+						<div class="cell">Date</div>
+					</th>
+					<th class="gutter" style="width: 0px; display: none;"></th>
+				</tr>
+				<tr class="">
+					<th colspan="1" rowspan="1" class="el-table_3_column_13_column_14     is-leaf">
+						<div class="cell">Title</div>
+					</th>
+					<th colspan="1" rowspan="1" class="el-table_3_column_13_column_15  is-center   is-leaf">
+						<div class="cell">Author</div>
+					</th>
+					<th colspan="1" rowspan="1" class="el-table_3_column_13_column_16  is-center   is-leaf">
+						<div class="cell">Readings</div>
+					</th>
+					<th class="gutter" style="width: 0px; display: none;"></th>
+				</tr>
+			</thead>
+		</table>
+	</body>
+</html>
+<script type="module">
+	import * as XLSX from "./node_modules/xlsx/xlsx.mjs"
+	var table_elt = document.getElementById("my-table-id");
+
+	// Extract Data (create a workbook object from the table)
+	var workbook = XLSX.utils.table_to_book(table_elt);
+	// Process Data (add a new row)
+	var ws = workbook.Sheets["Sheet1"];
+	// // console.log(XLSX.utils.sheet_to_html(ws));
+	// console.log(ws)
+	// console.log(workbook)
+	XLSX.utils.sheet_add_aoa(
+		ws, [
+				["Created " + new Date().toLocaleString(),null,'asda']//行数据
+			], 
+			{
+				origin: -1//行的覆盖位置0即为表头-1是新建1行
+			},
+	);
+	var workbook2 = XLSX.utils.book_new();
+	XLSX.utils.book_append_sheet(workbook2, ws, '瞎起个名字');
+	// Package and Release Data (`writeFile` tries to write and save an XLSB file)
+	
+	XLSX.writeFile(workbook2, "Report2.xlsx");
+</script>
+<!-- <script type="text/javascript">
+</script> -->

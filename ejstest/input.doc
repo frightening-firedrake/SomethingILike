@@ -1,0 +1,18 @@
+<template>
+  <div class="app-container">
+	<div class="panel">
+	  <div class="title">{{ $route.meta.title }}</div>
+	  <%= people[0].label %>
+	  <GeneralForm
+		ref="GeneralForm"
+		:readonly="readonly"
+		:formdata-creator="formdataCreator"
+		:img-list="imgList"
+		:btn-text="btnText"
+		:file-list="fileList"
+		@submitForm="submitForm"
+		@cancel="cancel"
+	  />
+	</div>
+  </div>
+</template>

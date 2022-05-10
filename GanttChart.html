@@ -24,12 +24,11 @@
 
 		<script>
 			var chartDom = document.getElementById('main');
-			var myChart = echarts.init(chartDom);
+			var myChart = echarts.init(chartDom,null,{locale:'ZH'});
 			var option;
-
 			var data = [];
 			var dataCount = 10;
-			var startTime = +new Date();
+			var startTime = new Date('2022-05-08 12:00:00').getTime();
 			var categories = ['锻造工位', '冷却工位', '热处理','锻造工位2','冷却工位2','热处理2'];//纵轴坐标 工位
 			var types = [{//工序
 					name: '吃饭',
@@ -61,7 +60,7 @@
 				var baseTime = startTime;
 				for (var i = 0; i < dataCount; i++) {
 					var typeItem = types[Math.round(Math.random() * (types.length - 1))];//随机工序
-					var duration = Math.ceil(Math.random() * 12);//随机工时
+					var duration = Math.ceil(Math.random() * 12)*3600000;//随机工时
 					var complete = Math.round(Math.random()*duration);//随机工时一部分
 					data.push({
 						name: typeItem.name,
@@ -75,8 +74,8 @@
 							}
 						}
 					});
-					console.log(baseTime - duration + complete)
-					baseTime += Math.round(Math.random() * 15);//累加了随机时间
+					// console.log(baseTime - duration + complete)
+					baseTime += Math.round(Math.random() * 15)*3600000;//累加了随机时间
 					// 实际数据结构类似data=[
 					//                                       categoryIndex，start，end  
 					// 						{name:'工序1'，value:[index, baseTime, (baseTime += duration), duration]},
@@ -227,16 +226,20 @@
 			
 			
 			
-			
 			option = {
 				tooltip: {//hover提示
+					// show:false,
 					formatter: function(params) {
-						return params.marker + params.name + ': ' + params.value[4] + ' 小时,已完成'+ params.value[5]+'小时,完成度'+(params.value[5]/params.value[4]*100).toFixed(2) +'%';
+						if( params.value){
+							return params.marker + params.name + ': ' + params.value[4]/3600000 + ' 小时,已完成'+ (params.value[5]/3600000).toFixed(2)+'小时,完成度'+(params.value[5]/params.value[4]*100).toFixed(2) +'%';
+						}
 					}
 				},
 				// legend: {
 				//     //写了没用闹不成
-				// 	data:['吃饭','睡觉','刷B站','撸代码','看动画','肥宅快乐水']
+				// 	// data:['吃饭','睡觉','刷B站','撸代码','看动画','肥宅快乐水'],
+				// 	type:'scroll',
+				// 	data:data,
 				// },
 				title: {
 					text: '这是在研究甘特图呢',//标题
@@ -263,15 +266,33 @@
 					height: 300
 				},
 				xAxis: {
-					min: startTime,
-					scale: true,
+					// min: startTime,
+					name:'时间',
+					min:'dataMin',
+					max:'dataMax',
+					// scale: true,
+					type:'time',
+					axisLine:{
+						symbol:['none', 'arrow'],	
+						show:true
+					},
+					axisTick:{
+						show:true
+					},
+					minInterval: 3600 * 1000,
+					maxInterval: 3600 * 24 * 1000,
 					axisLabel: {
-						formatter: function(val) {
-							return Math.max(0, val - startTime) + ' 小时';
-						}
-					}
+						// interval:3600*1000*6,
+						nameMap:'cn',
+						formatter: '{yyyy}年-{MMM}-{dd}日\n{eeee} {HH}:{mm}' // 得到的 label 形如：'2020-12-02'
+					},
+					axisPointer:{
+						show:true,
+						// snap:true,
+					},
 				},
 				yAxis: {
+					name:'工位',
 					data: categories
 				},
 				series: [
@@ -288,7 +309,6 @@
 					            // return params.name + ': ' + params.value[4] + ' 小时,已完成'+ params.value[5]+'小时,完成度'+(params.value[5]/params.value[4]*100).toFixed(2) +'%';
 					            return params.name + ':  完成度'+(params.value[5]/params.value[4]*100).toFixed(2) +'%';
 					          },
-						
 					        },
 					      },
 					itemStyle: {
@@ -324,11 +344,8 @@
 					},
 					data: data
 				},
-				
-				
 				]
 			};
-
 			option && myChart.setOption(option);
 		</script>
 	</body>

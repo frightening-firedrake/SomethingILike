@@ -1,0 +1,17 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "ceshiduoxie",
+  "main": "ejs.js",
+  "type": "module",
+  "dependencies": {
+    "ejs": "^3.1.7",
+    "node-xlsx": "^0.21.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

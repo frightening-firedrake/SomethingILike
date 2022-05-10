@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="./node_modules/ejs/ejs.js"></script>
+		<script>
+		  let people = ['geddy', 'neil', 'alex'],
+		      html = ejs.render('<%= people.join(", "); %>', {people: people});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

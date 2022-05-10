@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>磕睡啦</title>
+		<style type="text/css">
+			*{
+				padding:0;
+				margin:0;
+			}
+			.header{
+				position: relative;
+				font-size: 32px;
+				background:#000;
+				color:white;
+				height:100px;
+			}
+			.mask{
+				height:100vh;
+				width:100vw;
+				position:fixed;
+				background:rgba(0,0,0,.5);
+				z-index: 6;
+			}
+			.pageWrap{
+				position:relative;
+				height:100vh;
+				background:rgb(240,240,240);
+				transform: rotateY(45deg);
+				transform-origin: left;
+			}
+			body{
+				perspective: 2000px;
+			}
+		</style>
+	</head>
+	<body>
+				<div class="mask">
+					<ul>
+						<li>1</li>
+						<li>2</li>
+						<li>3</li>
+						<li>4</li>
+					</ul>
+				</div>
+		<div class="pageWrap">
+			<div class="header">
+				导航顶部
+			</div>
+			一些普通的内容
+		</div>
+	</body>
+</html>
+
