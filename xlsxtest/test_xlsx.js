@@ -1,5 +1,7 @@
 import XLSX from "xlsx"
 import XLSX_Style from "xlsx-style"
+import XLSX_Style_EXTEND from "xlsx-style-extend"
+
 // // Acquire Data (reference to the HTML table)
 // var table_elt = document.getElementById("my-table-id");
 
@@ -16,17 +18,18 @@ var ws = XLSX.utils.aoa_to_sheet([ "SheetJS".split("") ]);
 // console.log(ws)
 // var workbook = XLSX.read(ws);
 /* Write data starting at A2 */
-XLSX.utils.sheet_add_aoa(ws, [[1,2], [2,3], [3,4]], {origin: "A2"});
+XLSX.utils.sheet_add_aoa(ws, [[1,2,"",""], [2,3,"",""], [3,4,"",""]], {origin: "A2"});
 
 /* Write data starting at E2 */
 XLSX.utils.sheet_add_aoa(ws, [[5,6,7], [6,7,8], [7,8,9]], {origin:{r:1, c:4}});
 
 /* Append row */
 XLSX.utils.sheet_add_aoa(ws, [[4,5,6,7,8,9,0]], {origin: -1});
+XLSX.utils.sheet_add_aoa(ws, [["啊实打实宽宏大量可接受的华师大可适当拉开建设的拉克丝接电话上的卡号了撒看见很多垃圾上的拉开建设的撒哈拉大厦的绿卡洪都拉斯的火辣司机电话爱上了独家卡省的","","","","","",""]], {origin: -1});
 XLSX.utils.sheet_add_aoa(ws, [
-  [ 1 ], // A1
-  [ 2 ], // A2
-  [ {t: "n", v: 3, f: "A3*A2"} ] // A3
+  [ 1 ,"","","","","",""], // A1
+  [ 2 ,"","","","","",""], // A2
+  [ {t: "n", v: 3, f: "A3*A2"} ,"","","","","",""] // A3
 ], {origin: -1});
 ws['A1'].l = { Target:"https://sheetjs.com", Tooltip:"Find us @ SheetJS.com!" };
 ws['!merges']=[
@@ -40,11 +43,12 @@ ws['!cols']=[
 	{ 'wch': 66 },
 	{ 'wch': 1 },
 ]
-ws['!rows']=[//带有样式时候无效
+ws['!rows']=[//带有样式时候无效但是样式可以自动换行
 	{ 'hpt': 30 },
 	{ 'hpt': 18 },
 	{ 'hpt': 13 },
 	{ 'hpt': 66 },
+	{ 'hpt': 99 },
 	{ 'hpt': 99 },
 ]
 // sheet['!merges']=[
@@ -61,7 +65,8 @@ ws['!rows']=[//带有样式时候无效
 // 		vertical:'center',
 // 	}
 // }
-
+//单元格输入1时显示男，输入0时显示女 
+// worksheet["A1"].s.numFmt = '[=1]"男";[=0]"女"';
 
 // console.log(ws['A1'])
 for(let key in ws){
@@ -72,17 +77,39 @@ for(let key in ws){
 				sz: 12,
 				color: {
 					auto: 1,
-				},
+				}
 			},
 			alignment:{
-				wrapText: 1,
-				horizontal:'center',
-				vertical:'center',
+				wrapText: true ,//换行
+				horizontal:'center',//行居中
+				vertical:'center',//列居中
+			},
+			numFmt:"0.00%",
+			border:{
+				top:{
+					style:"thin",
+					color:{rgb:'FF4B0082'}
+				},
+				right:{
+					style:"thin",
+					color:{rgb:'FF4B0082'}
+				},
+				bottom:{
+					style:"thin",
+					color:{rgb:'FF4B0082'}
+				},
+				left:{
+					style:"thin",
+					color:{rgb:'FF4B0082'}
+				}
 			}
 		}
 		if(key[1]==='1'){
 			ws[key].s.fill={
-				fgColor:{rgb:'FFA3F4B1'}
+				fgColor:{rgb:'FFA3F4B1'},
+			}
+			ws[key].s.font.color={
+				rgb:'FFDC143C'
 			}
 		}
 	}
@@ -107,4 +134,6 @@ console.log('ok')
 XLSX.utils.book_append_sheet(workbook, ws, '瞎起个名字');
 XLSX.utils.book_append_sheet(workbook, worksheet, '瞎起个名字2');
 // XLSX.writeFile(workbook, "Report.xlsx");
-XLSX_Style.writeFile(workbook, "Report.xlsx");
+// XLSX.writeFile(workbook, "./folder/out.xlsx", wopts);
+// XLSX_Style.writeFile(workbook, "Report.xlsx");
+XLSX_Style_EXTEND.writeFile(workbook, "XLSX_Style_EXTEND_F.xlsx");
