@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>可爱的小熊熊</title>
+		<style type="text/css">
+			*{
+				padding:0;
+				margin:0;
+			}
+			body{
+				display: flex;
+				min-height: 100vh;
+				background:Crimson;
+				align-items: center;
+				justify-content: center;
+			}
+			.wrap{
+				width:600px;
+				height:600px;
+				background:CornflowerBlue ;
+				border-radius:50%;
+				position:relative;
+			}
+			.bearroom{
+				width:110%;
+				height:110%;
+				margin:-5% 0 0 -5%;
+				animation: rock 3s linear infinite;
+				transform-origin: 50% 90%;
+				cursor: pointer;
+			}
+			.bearroom:hover{
+				animation-play-state:paused;
+			}
+			.bearroom:hover .bear{
+				animation-duration:1s;
+			}
+			@keyframes rock{
+				0%,100%{
+					transform: rotate(0deg);
+				}
+				25%{
+					transform: rotate(8deg);
+				}
+				50%{
+					transform: rotate(0deg);
+				}
+				75%{
+					transform: rotate(-8deg);
+				}
+			}
+			.bear{
+				width:100%;
+				height:100%;
+				background-image:url('./images/bear.png') ;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: contain;
+				animation: rock2 4s linear infinite;
+				margin-top:20px;
+				transition: margin-top 0.2s;
+			}
+			@keyframes rock2{
+				0%,100%{
+					transform: translateY(0);
+				}
+				25%{
+					transform: translateY(10px);
+				}
+				50%{
+					transform: translateY(0);
+				}
+				75%{
+					transform: translateY(10px);
+				}
+			}
+			.bearface{
+				width:200px;
+				height:300px;
+				background-image:url('./images/face2.png') ;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: contain;
+				position:absolute;
+				top:33%;
+				left:50%;
+				margin-left:-100px;
+				animation: rock3 4s linear infinite;
+			}
+			@keyframes rock3{
+				0%,100%{
+					transform: translateY(0);
+				}
+				25%{
+					transform: translateY(-3px);
+				}
+				50%{
+					transform: translateY(0);
+				}
+				75%{
+					transform: translateY(-3px);
+				}
+			}
+			.bear:hover{
+				margin-top:40px;
+			}
+			.bear:hover .bearface{
+				background-image:url('./images/face1.png') ;
+			}
+			.miyan .bearface{
+				background-image:url('./images/face3.png') ;
+			}
+			.miyan:hover .bearface{
+				margin-top:-8px;
+				background-image:url('./images/face3.png') ;
+			}
+			.momo{
+				text-align: center;
+				font-size:34px;
+				color:Cyan;
+				font-weight: 500;
+				letter-spacing: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="bearroom">
+				<div class="bear">
+					<div class="bearface">
+						
+					</div>
+				</div>
+			</div>
+			<!-- <div class="momo">快来摸摸小熊</div> -->
+		</div>
+		<script type="text/javascript">
+			var bear=document.querySelector('.bear')
+			bear.onmousedown=function(){
+				bear.classList.add('miyan')
+			}
+			bear.onmouseup=function(){
+				bear.classList.remove('miyan')
+			}
+		</script>
+	</body>
+</html>

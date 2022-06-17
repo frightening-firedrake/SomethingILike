@@ -77,6 +77,9 @@ import {keyList} from "./keyList.js"
 // 	}
 // 	console.log(data)
 // })
+
+
+
 // 读取excel
 // 解析得到文档中的所有 sheet
 var sheets = xlsx.parse('流程和表单数量.xlsx');
@@ -163,3 +166,13 @@ fs.writeFile('a.xlsx', buffer, function(err) {
 // });
 // import {keyList} from "./keyList.js"
 // console.log(keyList[0].label)
+
+
+// var fs = require("fs");
+// 读取目录readdir
+// fs.readdir('./', function(err, data){
+// 	if(err){
+// 		return console.error(err);
+// 	}
+// 	console.log(data)
+// })
